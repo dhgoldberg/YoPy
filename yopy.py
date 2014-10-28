@@ -9,12 +9,10 @@ As of now, you can:
 
 YoPy requires a Yo! API access token. You can get one by registering at http://dev.justyo.co/
 
-YoPy requires the module requests. Get it from http://docs.python-requests.org/
-
 Parth Dhar
 2014
 """
-import requests
+from google.appengine.api import urlfetch
 
 class Yo:
 	def __init__(self, token):
@@ -26,37 +24,41 @@ class Yo:
 		Returns number of subscribers as an integer.
 		If request is unsuccessful, raises an error.
 		"""
-		number_url = "http://api.justyo.co/subscribers_count/?api_token=" + self.token
-		number = requests.get(number_url)
+		number_url = "https://api.justyo.co/subscribers_count/?api_token=" + self.token
+		number = urlfetch.fetch(number_url)
 		if number.status_code == requests.codes.ok:
 		    return number.json()["result"]
 		else:
 			number.raise_for_status()
 
-	def yoall(self, *link):
+	def yo_all(self, *link):
 		"""
 		Function to send a Yo to all subscribers of the API user account.
 		If request is successful, returns true.
 		If request is unsuccessful, raises an error.
 		"""
-		yoall_data = {"api_token": self.token, "link": link}
-		yoall_url = "http://api.justyo.co/yoall/"
-		yoall = requests.post(yoall_url, data=yoall_data)
+		yoall_data = {"api_token": self.token}
+		for kw in kwargs:
+			youser_data.update( { kw:kwargs[kw] } )
+		yoall_url = "https://api.justyo.co/yoall/"
+		yoall = urlfetch.fetch(url=yoall_url, payload=yoall_data, method=urlfetch.POST)
 		if yoall.status_code == requests.codes.created:
 			return True
 		else:
 			yoall.raise_for_status()
 
-	def youser(self, username, *link):
+	def yo_user(self, username, **kwargs):
 		"""
 		Function to send a Yo to a specific username.
 		If request is successful, returns true.
 		If request is unsuccessful, raises an error.
 		"""
 		username = username.upper()
-		youser_data = {"api_token": self.token, "username": username, "link": link}
-		youser_url = "http://api.justyo.co/yo/"
-		youser = requests.post(youser_url, data=youser_data)
+		youser_data = {"api_token": self.token, "username": username}
+		for kw in kwargs:
+			youser_data.update( { kw:kwargs[kw] } )
+		youser_url = "https://api.justyo.co/yo/"
+		youser = urlfetch.fetch(url=youser_url, payload=youser_data, method=urlfetch.POST)
 		if youser.status_code == requests.codes.ok:
 		    return True
 		else:

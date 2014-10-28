@@ -14,7 +14,7 @@ YoPy requires a Yo! API access token. You can get one by registering at http://d
 
 Dependencies
 ============
-YoPy requires the module Requests. Get it from http://docs.python-requests.org/
+This version of YoPy is designed to work within Google App Engine
 
 Installation
 ============
