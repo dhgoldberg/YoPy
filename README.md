@@ -22,7 +22,7 @@ To install, simple copy <code>yopy.py</code> to the <code>Lib</code> folder of y
 
 Usage
 =====
-YoPy works with any version of Python, as long as it supports Requests.<br/>
+YoPy works with Python as supported by Google App Engine<br/>
 Here is a Python 2 example :
 
 	import yopy
@@ -30,11 +30,13 @@ Here is a Python 2 example :
 	token = <your_api_token>
 	username = "PARTHDHAR"
 	link = "https://github.com/espice/YoPy"
+	location = "37.864849,-119.538361"
 
 	yo = yopy.Yo(token)
 	print yo.number()
-	yo.yoall(link)
-	yo.youser(username, link)
+	yo.yo_all(link)
+	yo.yo_user(username, link=link)
+	yo.yo_user(username, location=location)
 
 Parth Dhar<br/>
 2014
