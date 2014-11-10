@@ -82,13 +82,11 @@ class Yo:
         youser_data = {"api_token": self.token, "username": username}
         for kw in kwargs:
             youser_data.update( { kw:kwargs[kw] } )
-        print json.dumps(youser_data)
         youser_url = "https://api.justyo.co/yo/"
         youser = urlfetch.fetch(url=youser_url, 
                                 payload=json.dumps(youser_data), 
                                 method=urlfetch.POST,
                                 headers={'content-type': 'application/json'})
-        print youser.status_code
         if youser.status_code == 200:
             return True
         else:
